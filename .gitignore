@@ -26,3 +26,5 @@ node_modules/
 .eastwood
 .shadow-cljs/
 .env-vars.edn
+/package-lock.json
+/resources/public/js/compiled/
