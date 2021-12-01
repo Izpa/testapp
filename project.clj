@@ -11,16 +11,15 @@
                  [nrepl "0.8.3"]
 
                  ;backend
-                 [com.datomic/datomic-free "0.9.5544" :exclusions [commons-codec]]
-                 [compojure "1.6.1" :exclusions [commons-codec]]
+                 [com.datomic/datomic-free "0.9.5697" :exclusions [com.google.guava/guava]]
+                 [compojure "1.6.1"]
                  [environ "1.2.0"]
-                 [ring/ring-core "1.9.4":exclusions [commons-codec]]
-                 [ring/ring-jetty-adapter "1.9.4" :exclusions [commons-codec]]
+                 [ring/ring-core "1.9.4"]
+                 [ring/ring-jetty-adapter "1.9.4"]
                  [hiccup "1.0.5"]
 
                  ;js-app
                  [org.clojure/clojurescript "1.10.891"]
-                 [com.google.guava/guava "30.1-jre"]
                  [cljsjs/react-dom "17.0.2-0"]
                  [reagent "1.1.0"]
                  [re-frame "1.2.0"]

@@ -4,8 +4,7 @@
    [re-frame.core :as re-frame]
    [testapp.events :as events]
    [testapp.views :as views]
-   [testapp.config :as config]
-   ))
+   [testapp.config :as config]))
 
 
 (defn dev-setup []
