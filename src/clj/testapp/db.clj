@@ -3,8 +3,7 @@
 
 (def db-uri "datomic:mem://testapp")
 
-(defn create-db []
-  (d/create-database db-uri))
+(d/create-database db-uri)
 
 (def conn (d/connect db-uri))
 
