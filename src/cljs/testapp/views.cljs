@@ -6,19 +6,17 @@
     [testapp.events :as events]))
 
 (defn- req [{id :db/id :req/keys [title description declarer performer due-date]}]
-  (print id)
   [:div
    ^{:key id}
-   [:div [:div "Title"] [:div title]]
-   [:div [:div "Description"] [:div description]]
-   [:div [:div "Declarer"] [:div declarer]]
-   [:div [:div "Performer"] [:div performer]]
-   [:div [:div "Due-date"] [:div due-date]]])
+   [:span [:span "Title"] [:span title]]
+   [:span [:span "Description"] [:span description]]
+   [:span [:span "Declarer"] [:span declarer]]
+   [:span [:span "Performer"] [:span performer]]
+   [:span [:span "Due-date"] [:span due-date]]])
 
 (defn- reqs []
-  [:div.box-body
-   [:div
-    (map #(req %) @(subscribe [::subs/reqs]))]])
+  [:div
+   (map #(req %) @(subscribe [::subs/reqs]))])
 
 (defn- add-req []
   (let [req-default {:req/title       ""
@@ -31,55 +29,54 @@
               (dispatch [::events/add-req @req])
               (reset! req req-default))]
     (fn []
-      [:div.box-footer
-       [:form {:on-submit add}
-        [:div.input-group.input-group-sm
+      [:form {:on-submit add}
+       [:div.input-group.input-group-sm
+        [:label "Title"
          [:input.form-control {:type       "text"
-                               :label      "Title"
                                :value      (:req/title @req)
                                :auto-focus false
                                :required   true
                                :maxLength  500
-                               :on-change  #(swap! req assoc :req/title (-> % .-target .-value))}]
+                               :on-change  #(swap! req assoc :req/title (-> % .-target .-value))}]]
 
+        [:label "Description"
          [:input.form-control {:type       "text"
-                               :label      "Description"
                                :value      (:req/description @req)
                                :auto-focus false
                                :required   true
                                :maxLength  500
-                               :on-change  #(swap! req assoc :req/description (-> % .-target .-value))}]
+                               :on-change  #(swap! req assoc :req/description (-> % .-target .-value))}]]
 
+        [:label "Declarer"
          [:input.form-control {:type       "text"
-                               :label      "Declarer"
                                :value      (:req/declarer @req)
                                :auto-focus false
                                :required   true
                                :maxLength  500
-                               :on-change  #(swap! req assoc :req/declarer (-> % .-target .-value))}]
+                               :on-change  #(swap! req assoc :req/declarer (-> % .-target .-value))}]]
 
+        [:label "Performer"
          [:input.form-control {:type       "text"
-                               :label      "Performer"
                                :value      (:req/performer @req)
                                :auto-focus false
                                :required   true
                                :maxLength  500
-                               :on-change  #(swap! req assoc :req/performer (-> % .-target .-value))}]
+                               :on-change  #(swap! req assoc :req/performer (-> % .-target .-value))}]]
 
+        [:label "Due-date"
          [:input.form-control {:type       "text"
-                               :label      "Due-date"
                                :value      (:req/due-date @req)
                                :auto-focus false
                                :required   true
                                :maxLength  500
-                               :on-change  #(swap! req assoc :req/due-date (-> % .-target .-value))}]
-         [:div.input-group-append
-          [:button.btn.btn-outline-success {:type "submit"} "Add"]]]]])))
+                               :on-change  #(swap! req assoc :req/due-date (-> % .-target .-value))}]]
+        [:div.input-group-append
+         [:button.btn.btn-outline-success {:type "submit"} "Add"]]]])))
 
 (defn main-panel []
   [:div.container
    [:div.row.justify-content-center
     [:div.col-12
-     [:div
+     [:div.box-body
       [reqs]
       [add-req]]]]])

@@ -13,7 +13,22 @@
         (GET "/" _ (response/index main-frontend-js-app-path))
         (GET "/testapp" _ (response/index main-frontend-js-app-path))
         (GET "/health" _ (response/health))
-        (GET "/req/all" _ (req/all))
+
+        (GET "/test" request {:status  200
+                               :headers {"content-type" "application/edn"}
+                               :body    {:req (-> request
+                                                  :params
+                                                  (get "from-id")
+                                                  (#(re-find  #"\d+" %))
+                                                  (or "0")
+                                                  BigInteger.)}})
+
+        (GET "/req/all" request (req/all (-> request
+                                             :params
+                                             (get "from-id")
+                                             (#(re-find  #"\d+" %))
+                                             (or "0")
+                                             BigInteger.)))
         (POST "/req/add" request (-> request
                                      :body-params
                                      req/add))
@@ -21,4 +36,5 @@
         (route/not-found "Page not found."))
       wrap-params
       wrap-keyword-params
-      muuntaja.middleware/wrap-format))
+      muuntaja.middleware/wrap-format
+      muuntaja.middleware/wrap-params))

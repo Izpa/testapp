@@ -21,7 +21,6 @@
 
                  ;js-app
                  [org.clojure/clojurescript "1.10.891"]
-                 [com.cemerick/url "0.1.1"]
                  [cljsjs/react-dom "17.0.2-0"]
                  [day8.re-frame/async-flow-fx "0.3.0"]
                  [day8.re-frame/http-fx "0.2.3"]
