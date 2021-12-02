@@ -5,8 +5,10 @@
     [testapp.subs :as subs]
     [testapp.events :as events]))
 
-(defn- req [{:req/keys [title description declarer performer due-date]}]
+(defn- req [{id :db/id :req/keys [title description declarer performer due-date]}]
+  (print id)
   [:div
+   ^{:key id}
    [:div [:div "Title"] [:div title]]
    [:div [:div "Description"] [:div description]]
    [:div [:div "Declarer"] [:div declarer]]
@@ -16,8 +18,7 @@
 (defn- reqs []
   [:div.box-body
    [:div
-    (map #(^{:key (:db/id %)} [req %])
-         @(subscribe [::subs/reqs]))]])
+    (map #(req %) @(subscribe [::subs/reqs]))]])
 
 (defn- add-req []
   (let [req-default {:req/title       ""
