@@ -1,8 +1,8 @@
 (ns testapp.subs
   (:require
-   [re-frame.core :as re-frame]))
+   [re-frame.core :refer [reg-sub subscribe]]))
 
-(re-frame/reg-sub
- ::name
- (fn [db]
-   (:name db)))
+(reg-sub
+  ::reqs
+  (fn [{reqs :reqs}]
+    (vals reqs)))

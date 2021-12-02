@@ -17,10 +17,14 @@
                  [ring/ring-core "1.9.4"]
                  [ring/ring-jetty-adapter "1.9.4"]
                  [hiccup "1.0.5"]
+                 [metosin/muuntaja "0.6.8"]
 
                  ;js-app
                  [org.clojure/clojurescript "1.10.891"]
+                 [com.cemerick/url "0.1.1"]
                  [cljsjs/react-dom "17.0.2-0"]
+                 [day8.re-frame/async-flow-fx "0.3.0"]
+                 [day8.re-frame/http-fx "0.2.3"]
                  [reagent "1.1.0"]
                  [re-frame "1.2.0"]
                  [thheller/shadow-cljs "2.16.2"]]

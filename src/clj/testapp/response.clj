@@ -12,12 +12,12 @@
      [:div#app]
      (page/include-js js-output-name)]))
 
-(defn index [_ js-output-name]
+(defn index [js-output-name]
   {:status 200
    :headers {"contenаt-type" "text/plain"}
    :body (index-html js-output-name)})
 
-(defn health [_]
+(defn health []
   {:status  200
    :headers {"content-type" "text/plain"}
    :body    "OK"})

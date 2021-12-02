@@ -32,8 +32,7 @@
                   :db/cardinality :db.cardinality/one
                   :db/doc         "The due date of req"}])
 
-(defn migrate []
-  (d/transact conn req-schema))
+(d/transact conn req-schema)
 
 (defn add-req [title description declarer performer due-date]
   (d/transact conn [{:req/title       title
@@ -60,7 +59,7 @@
         :tempids
         (get temp-id))))
 
-(defn list-req []
+(defn all-req []
   (->> (d/q '[:find (pull ?e [*])
               :where [?e :req/title]]
             (d/db conn))

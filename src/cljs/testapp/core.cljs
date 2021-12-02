@@ -2,6 +2,7 @@
   (:require
    [reagent.dom :as rdom]
    [re-frame.core :as re-frame]
+   [day8.re-frame.http-fx]
    [testapp.events :as events]
    [testapp.views :as views]
    [testapp.config :as config]))
