@@ -13,16 +13,6 @@
         (GET "/" _ (response/index main-frontend-js-app-path))
         (GET "/testapp" _ (response/index main-frontend-js-app-path))
         (GET "/health" _ (response/health))
-
-        (GET "/test" request {:status  200
-                               :headers {"content-type" "application/edn"}
-                               :body    {:req (-> request
-                                                  :params
-                                                  (get "from-id")
-                                                  (#(re-find  #"\d+" %))
-                                                  (or "0")
-                                                  BigInteger.)}})
-
         (GET "/req/all" request (req/all (-> request
                                              :params
                                              (get "from-id")
