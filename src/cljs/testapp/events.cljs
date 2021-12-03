@@ -6,7 +6,7 @@
 (re-frame/reg-event-db
   :initialise-db
   (fn [_ _]
-    {:reqs []}))
+    {:reqs (sorted-map-by >)}))
 
 (re-frame/reg-event-fx
   ::add-req
@@ -25,11 +25,15 @@
     {:http-xhrio {:method          :get
                   :uri             "/req/all"
                   :timeout         5000
-                  :params          {:from-id (-> reqs first :db/id)}
+                  :params          {:from-id (-> reqs first first)}
                   :response-format (ajax.edn/edn-response-format)
                   :on-success [::receive-reqs]}}))
 
 (re-frame/reg-event-db
   ::receive-reqs
-  (fn [db [_ reqs]]
-    (update db :reqs #(-> reqs (into %) vec))))
+  (fn [{db-reqs :reqs :as db} [_ new-reqs]]
+    (assoc db
+           :reqs
+           (reduce #(into %1 {(:db/id %2) %2})
+                   db-reqs
+                   new-reqs))))

@@ -16,7 +16,7 @@
 
 (defn- reqs []
   [:div
-   (map #(req %) @(subscribe [::subs/reqs]))])
+   (map #(-> % second req) @(subscribe [::subs/reqs]))])
 
 (defn- add-req []
   (let [req-default {:req/title       ""
@@ -78,5 +78,5 @@
    [:div.row.justify-content-center
     [:div.col-12
      [:div.box-body
-      [reqs]
-      [add-req]]]]])
+      [add-req]
+      [reqs]]]]])
