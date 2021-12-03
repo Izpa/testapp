@@ -70,7 +70,7 @@
                                :on-change  #(swap! req assoc :req/performer (-> % .-target .-value))}]]
 
         [:label "Due-date"
-         [:input.form-control {:type       "text"
+         [:input.form-control {:type       "date"
                                :value      (:req/due-date @req)
                                :auto-focus false
                                :required   true
@@ -79,10 +79,17 @@
         [:div.input-group-append
          [:button.btn.btn-outline-success {:type "submit"} "Add"]]]])))
 
+(defn refresh-button []
+  [:button.btn.btn-outline-success
+   {:type "secondary"
+    :on-click #(dispatch [::events/get-reqs])}
+   "Refresh"])
+
 (defn main-panel []
   [:div.container
    [:div.row.justify-content-center
     [:div.col-12
      [:div.box-body
       [add-req]
-      [reqs]]]]])
+      [reqs]
+      [refresh-button]]]]])

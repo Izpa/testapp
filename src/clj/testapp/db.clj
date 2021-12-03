@@ -32,7 +32,8 @@
                   :db/cardinality :db.cardinality/one
                   :db/doc         "The due date of req"}])
 
-(d/transact conn req-schema)
+(defn migrate []
+  (d/transact conn req-schema))
 
 ;(def req {:req/title "1" :req/description "2" :req/declarer "3" :req/performer "4" :req/due-date "5"})
 (defn add-req->req-id [{:req/keys [title description declarer performer due-date]}]
