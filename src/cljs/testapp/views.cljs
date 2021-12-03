@@ -84,5 +84,5 @@
    [:div.row.justify-content-center
     [:div.col-12
      [:div.box-body
-      [reqs]
-      [add-req]]]]])
+      [add-req]
+      [reqs]]]]])
