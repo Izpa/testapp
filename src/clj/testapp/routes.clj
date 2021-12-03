@@ -13,15 +13,8 @@
         (GET "/" _ (response/index main-frontend-js-app-path))
         (GET "/testapp" _ (response/index main-frontend-js-app-path))
         (GET "/health" _ (response/health))
-        (GET "/req/all" request (req/all (-> request
-                                             :params
-                                             (get "from-id")
-                                             (#(re-find  #"\d+" %))
-                                             (or "0")
-                                             BigInteger.)))
-        (POST "/req/add" request (-> request
-                                     :body-params
-                                     req/add))
+        (GET "/req/all" request (req/all-handler request))
+        (POST "/req/add" request (req/add-handler request))
         (route/resources "/")
         (route/not-found "Page not found."))
       wrap-params
