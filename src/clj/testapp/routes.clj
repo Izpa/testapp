@@ -13,8 +13,8 @@
         (GET "/" _ (response/index main-frontend-js-app-path))
         (GET "/testapp" _ (response/index main-frontend-js-app-path))
         (GET "/health" _ (response/health))
-        (GET "/req/all" request (req/all-handler request))
-        (POST "/req/add" request (req/add-handler request))
+        (GET "/req/all" [request respond raise] (req/all-handler request respond raise))
+        (POST "/req/add" [request respond raise] (req/add-handler request respond raise))
         (route/resources "/")
         (route/not-found "Page not found."))
       wrap-params

@@ -9,4 +9,4 @@
 (defn start [& [port]]
   (let [port (Integer. (or port (env :port) 8080))]
     (log/info "Start server...")
-    (run-jetty (routes/all main-frontend-js-app-path) {:port port :join? false})))
+    (run-jetty (routes/all main-frontend-js-app-path) {:port port :join? false :async? true :async-timeout 60000})))

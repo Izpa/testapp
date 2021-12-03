@@ -16,18 +16,19 @@
                   :params          req
                   :timeout         5000
                   :format          (ajax.edn/edn-request-format)
-                  :response-format (ajax.edn/edn-response-format)
-                  :on-success [::get-reqs]}}))
+                  :response-format (ajax.edn/edn-response-format)}}))
 
 (re-frame/reg-event-fx
   ::get-reqs
-  (fn [{{reqs :reqs} :db} _]
+  (fn [{{reqs :reqs} :db} [_ previous-reqs] ]
     {:http-xhrio {:method          :get
                   :uri             "/req/all"
-                  :timeout         5000
+                  :timeout         120000
                   :params          {:from-id (-> reqs first first)}
                   :response-format (ajax.edn/edn-response-format)
-                  :on-success [::receive-reqs]}}))
+                  :on-request [::receive-reqs previous-reqs]
+                  :on-success [::get-reqs]
+                  :on-failure [::get-reqs]}}))
 
 (re-frame/reg-event-db
   ::receive-reqs

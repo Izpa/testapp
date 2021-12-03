@@ -20,6 +20,6 @@
 
 (defn init []
   (re-frame/dispatch-sync [::events/initialize-db])
-  (re-frame/dispatch-sync [::events/get-reqs])
+  (re-frame/dispatch-sync [::events/get-reqs []])
   (dev-setup)
   (mount-root))

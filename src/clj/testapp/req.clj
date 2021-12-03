@@ -7,19 +7,19 @@
 (defn- add [req]
   (assoc req :db/id (add-req->req-id req)))
 
-(defn all-handler [request]
+(defn all-handler [request respond raise]
   (let [from-id (-> request
                     :params
                     (get "from-id")
                     (#(re-find #"\d+" %))
                     (or "0")
                     BigInteger.)]
-    {:status  200
-     :headers {"content-type" "application/edn"}
-     :body    (all from-id)}))
+    (respond {:status  200
+              :headers {"content-type" "application/edn"}
+              :body    (all from-id)})))
 
-(defn add-handler [request]
+(defn add-handler [request respond raise]
   (let [req (:body-params request)]
-    {:status  200
-     :headers {"content-type" "application/edn"}
-     :body    (add req)}))
+    (respond {:status  200
+              :headers {"content-type" "application/edn"}
+              :body    (add req)})))
