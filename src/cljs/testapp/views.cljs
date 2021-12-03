@@ -6,17 +6,23 @@
     [testapp.events :as events]))
 
 (defn- req [{id :db/id :req/keys [title description declarer performer due-date]}]
-  [:div
+  [:tr
    ^{:key id}
-   [:span [:span "Title"] [:span title]]
-   [:span [:span "Description"] [:span description]]
-   [:span [:span "Declarer"] [:span declarer]]
-   [:span [:span "Performer"] [:span performer]]
-   [:span [:span "Due-date"] [:span due-date]]])
+   [:td title]
+   [:td description]
+   [:td declarer]
+   [:td performer]
+   [:td due-date]])
 
 (defn- reqs []
-  [:div
-   (map #(-> % second req) @(subscribe [::subs/reqs]))])
+  [:table
+   [:tr
+    [:th "Title"]
+    [:th "Description"]
+    [:th "Declarer"]
+    [:th "Performer"]
+    [:th "Due-date"]]
+   (map #(req %) @(subscribe [::subs/reqs]))])
 
 (defn- add-req []
   (let [req-default {:req/title       ""
@@ -78,5 +84,5 @@
    [:div.row.justify-content-center
     [:div.col-12
      [:div.box-body
-      [add-req]
-      [reqs]]]]])
+      [reqs]
+      [add-req]]]]])
