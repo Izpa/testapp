@@ -4,20 +4,20 @@
             [ring.middleware.params :refer [wrap-params]]
             [ring.middleware.keyword-params :refer [wrap-keyword-params]]
             [muuntaja.middleware]
-            [testapp.response :as response]
-            [testapp.req :as req]))
+            [testapp.response :as response]))
 
-(defn all [main-frontend-js-app-path]
+(defn main-routes [main-frontend-js-app-path]
+  [(GET "/" _ (response/index main-frontend-js-app-path))
+   (GET "/testapp" _ (response/index main-frontend-js-app-path))
+   (GET "/health" _ (response/health))
+   (route/resources "/")
+   (route/not-found "Page not found.")])
 
-  (-> (routes
-        (GET "/" _ (response/index main-frontend-js-app-path))
-        (GET "/testapp" _ (response/index main-frontend-js-app-path))
-        (GET "/health" _ (response/health))
-        (GET "/req/all" request (req/all-handler request))
-        (POST "/req/add" request (req/add-handler request))
-        (route/resources "/")
-        (route/not-found "Page not found."))
-      wrap-params
-      wrap-keyword-params
-      muuntaja.middleware/wrap-format
-      muuntaja.middleware/wrap-params))
+(defn dry-app [endpoints main-frontend-js-app-path]
+  (->> main-frontend-js-app-path
+       main-routes
+       (concat endpoints)
+       (apply routes)))
+
+(defn app [endpoints main-frontend-js-app-path]
+  (-> (dry-app endpoints main-frontend-js-app-path)))

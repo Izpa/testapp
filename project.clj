@@ -8,18 +8,17 @@
   :dependencies [[org.clojure/clojure "1.10.3"]
                  [org.clojure/core.async "1.4.627"]
                  [org.clojure/tools.cli "1.0.206"]
+                 [org.clojure/tools.logging "1.1.0"]
+                 [integrant "0.8.0"]
                  [nrepl "0.8.3"]
-
-                 ;backend
+                 [integrant/repl "0.3.2"]
                  [com.datomic/datomic-free "0.9.5697" :exclusions [com.google.guava/guava]]
-                 [compojure "1.6.1"]
+                 [compojure "1.6.2"]
                  [environ "1.2.0"]
                  [ring/ring-core "1.9.4"]
                  [ring/ring-jetty-adapter "1.9.4"]
                  [hiccup "1.0.5"]
                  [metosin/muuntaja "0.6.8"]
-
-                 ;js-app
                  [org.clojure/clojurescript "1.10.891"]
                  [cljsjs/react-dom "17.0.2-0"]
                  [day8.re-frame/async-flow-fx "0.3.0"]

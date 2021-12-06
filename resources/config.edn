@@ -1,0 +1,31 @@
+{:testapp/server                            {:port                      8080
+                                             :join?                     false
+                                             :main-frontend-js-app-path "/js/compiled/app.js"
+                                             :endpoints                 #ig/refset :testapp/endpoint}
+ :testapp/db                                {:uri    "datomic:mem://testapp"
+                                             :schema [{:db/ident       :req/title
+                                                       :db/valueType   :db.type/string
+                                                       :db/cardinality :db.cardinality/one
+                                                       :db/doc         "The title of req"}
+
+                                                      {:db/ident       :req/description
+                                                       :db/valueType   :db.type/string
+                                                       :db/cardinality :db.cardinality/one
+                                                       :db/doc         "The description of req"}
+
+                                                      {:db/ident       :req/declarer
+                                                       :db/valueType   :db.type/string
+                                                       :db/cardinality :db.cardinality/one
+                                                       :db/doc         "The declarer of req"}
+
+                                                      {:db/ident       :req/performer
+                                                       :db/valueType   :db.type/string
+                                                       :db/cardinality :db.cardinality/one
+                                                       :db/doc         "The performer of req"}
+
+                                                      {:db/ident       :req/due-date
+                                                       :db/valueType   :db.type/string
+                                                       :db/cardinality :db.cardinality/one
+                                                       :db/doc         "The due date of req"}]}
+ [:testapp.req/endpoints :testapp/endpoint] {:req-service #ig/ref :testapp.req/service}
+ :testapp.req/service                       {:db #ig/ref :testapp/db}}
